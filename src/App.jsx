@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion'
+﻿import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import './App.css'
 
@@ -48,6 +48,76 @@ const NACIONAL = [
   { headline: 'Tres entidades, un mismo patrón: contratos de salud señalados por organismos civiles', by: 'Staff', mins: '6' },
   { headline: '40 demandas ciudadanas sin respuesta: el silencio oficial medido en días y documentos', by: 'Redacción', mins: '3' },
   { headline: 'Periodismo local bajo presión: agresiones documentadas en el primer semestre de 2026', by: 'Oswaldo Herrera', mins: '8' },
+]
+
+
+const SECCIONES = [
+  {
+    num: '01', color: '#8C1515',
+    img: ['#2A0A0A', '#6B1A1A', '#A03030', '#3A0A0A'],
+    name: 'La Voz de la Banqueta',
+    desc: 'Entrevistas a vecinos de la zona que nos cuentan sobre los problemas reales de su comunidad.',
+  },
+  {
+    num: '02', color: '#1B4A9B',
+    img: ['#050E2A', '#0E2460', '#1A3A9B', '#08183A'],
+    name: 'El Ojo que Todo lo Ve',
+    desc: 'La mirada del dron reportando baches, inundaciones y todo lo que afecta al municipio desde arriba.',
+  },
+  {
+    num: '03', color: '#7A5E18',
+    img: ['#1A1508', '#4A3810', '#8B6A20', '#2A2008'],
+    name: 'La Cuenta Pendiente',
+    desc: 'Lo que sucede en cada municipio frente a las promesas incumplidas de los partidos políticos.',
+  },
+  {
+    num: '04', color: '#1B6B2E',
+    img: ['#081A0E', '#10421A', '#1A7A30', '#0A2814'],
+    name: 'Negocio de tu Zona',
+    desc: 'Espacio para que los negocios locales se anuncien y conecten directamente con su comunidad.',
+  },
+  {
+    num: '05', color: '#5B1B9B',
+    img: ['#100820', '#2A1050', '#4A1E8B', '#180A30'],
+    name: 'Aprende y Emprende',
+    desc: 'Cursos, talleres y recursos de apoyo a la comunidad para crecer y desarrollarse.',
+  },
+  {
+    num: '06', color: '#9B5B1B',
+    img: ['#200E04', '#5A2E08', '#9B5010', '#301808'],
+    name: 'Anuncia, Vende y Gana',
+    desc: 'Eventos, descuentos, comida de fin de semana y todo lo que quieras ofrecer en tu zona.',
+  },
+  {
+    num: '07', color: '#8C1515',
+    img: ['#1A0404', '#580808', '#8C1414', '#280404'],
+    name: 'Xpediente del Día',
+    desc: 'Lo más importante del día en un solo lugar. Tu resumen esencial de lo que no puedes perderte.',
+  },
+  {
+    num: '08', color: '#1B3A7A',
+    img: ['#060A18', '#101E50', '#1A308A', '#080E28'],
+    name: 'Lo que No te Contaron',
+    desc: 'Te dijeron una cosa y era otra. ¡Aguas! Seguimiento a denuncias ciudadanas.',
+  },
+  {
+    num: '09', color: '#6B1010',
+    img: ['#150404', '#400808', '#6B1010', '#200404'],
+    name: 'Xpediente Abierto',
+    desc: 'Casos profundos de corrupción y abuso con seguimiento continuo. Nada se cierra sin respuesta.',
+  },
+  {
+    num: '10', color: '#9B7B1B',
+    img: ['#1E1804', '#5A4808', '#9B7B18', '#2C2404'],
+    name: 'La Calle No Perdona',
+    desc: 'Momentos absurdos, contenido viral y el análisis chistoso del personaje más honesto del barrio.',
+  },
+  {
+    num: '11', color: '#2B6B3E',
+    img: ['#081410', '#104030', '#1E7048', '#0A2018'],
+    name: 'Irrelevante pero Importante',
+    desc: 'Clima, efemérides, espectáculos, eventos y todo lo que hace único al Estado de México.',
+  },
 ]
 
 const OPINION = [
@@ -117,15 +187,24 @@ function Masthead({ dark, onToggle }) {
       </div>
       <Rule thick />
       <div className="masthead-title" aria-label={TITLE}>
-        {TITLE.split('').map((ch, i) => (
+        <motion.span
+          className="masthead-logo-wrap"
+          initial={{ opacity: 0, y: -56, rotateX: 90 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ delay: 0.15, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img src="/logo_oficial.png" className="masthead-logo" alt="" aria-hidden="true" />
+          <span className="mchar">X</span>
+        </motion.span>
+        {TITLE.slice(1).split('').map((ch, i) => (
           <motion.span
             key={i}
             className={ch === ' ' ? 'mchar mchar--space' : 'mchar'}
             initial={{ opacity: 0, y: -56, rotateX: 90 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ delay: 0.15 + i * 0.04, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.19 + i * 0.04, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           >
-            {ch === ' ' ? ' ' : ch}
+            {ch === ' ' ? '\u00a0' : ch}
           </motion.span>
         ))}
       </div>
@@ -269,6 +348,77 @@ function Card({ s, index }) {
         <span>{s.mins} min de lectura</span>
       </div>
     </motion.article>
+  )
+}
+
+
+// ─── Secciones grid ──────────────────────────────────────────────────────────
+
+function SeccionCard({ s, index }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  const [c1, c2, c3, c4] = s.img
+  return (
+    <motion.article
+      ref={ref}
+      className="card"
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: (index % 3) * 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, transition: { duration: 0.2 } }}
+    >
+      <div
+        className="img-ph card-img"
+        style={{ background: `linear-gradient(135deg,${c1} 0%,${c2} 35%,${c3} 70%,${c4} 100%)` }}
+        aria-hidden="true"
+      >
+        <div className="img-grain" />
+        <div className="img-vignette" />
+      </div>
+      <Tag color={s.color}>Sección {s.num}</Tag>
+      <h3 className="card-hl seccion-name" style={{ color: s.color }}>{s.name}</h3>
+      <p className="card-ex">{s.desc}</p>
+      <div className="card-meta">
+        <span>Sección {s.num}</span>
+        <span>Xpediente Callejero</span>
+      </div>
+    </motion.article>
+  )
+}
+
+function SeccionesGrid() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-40px' })
+  return (
+    <section className="secciones-sec">
+      <div ref={ref} className="sec-head">
+        <Rule thick />
+        <div className="sec-head-row">
+          <motion.h2
+            className="sec-title"
+            initial={{ opacity: 0, x: -18 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            Nuestras Secciones
+          </motion.h2>
+          <motion.span
+            className="sec-more"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.25, duration: 0.4 }}
+          >
+            Xpediente Callejero · EdoMex
+          </motion.span>
+        </div>
+        <Rule />
+      </div>
+      <div className="featured-grid secciones-grid">
+        {SECCIONES.map((s, i) => (
+          <SeccionCard key={s.num} s={s} index={i} />
+        ))}
+      </div>
+    </section>
   )
 }
 
@@ -438,11 +588,7 @@ export default function App() {
       <main>
         <Hero />
         <div className="divider" />
-        <section className="featured-sec">
-          <div className="featured-grid">
-            {FEATURED.map((s, i) => <Card key={i} s={s} index={i} />)}
-          </div>
-        </section>
+        <SeccionesGrid />
         <PullQuote />
         <section className="nac-sec">
           <SecHead title="Nacional" />

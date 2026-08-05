@@ -142,10 +142,11 @@ body {
 .masthead-title {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   padding: 16px 0 12px;
   perspective: 1400px;
   flex-wrap: wrap;
+  gap: 0 2px;
 }
 
 .mchar {
@@ -160,6 +161,19 @@ body {
 .mchar--space {
   display: inline-block;
   width: clamp(12px, 1.8vw, 26px);
+}
+
+.masthead-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.masthead-logo {
+  height: clamp(70px, 12vw, 160px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.18));
 }
 
 .masthead-tagline {
@@ -506,6 +520,26 @@ body {
 .img-vignette {
   position: absolute; inset: 0;
   background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.48) 100%);
+}
+
+
+/* ── Secciones grid ──────────────────────────────────────────────────────── */
+
+.seccion-name {
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  transition: opacity 0.2s;
+}
+.card:hover .seccion-name { opacity: 0.85; }
+
+.secciones-sec { padding-bottom: 8px; }
+
+@media (max-width: 860px) {
+  .secciones-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+}
+@media (max-width: 500px) {
+  .secciones-grid { grid-template-columns: 1fr !important; }
 }
 
 /* ── Pull quote ──────────────────────────────────────────────────────── */
