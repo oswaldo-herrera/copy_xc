@@ -265,26 +265,43 @@ body {
   display: flex;
   align-items: center;
   overflow-x: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) var(--rule);
   border-bottom: 2px solid var(--ink);
   margin-top: 14px;
+  padding-bottom: 4px;
 }
-.sec-nav::-webkit-scrollbar { display: none; }
+
+.sec-nav::-webkit-scrollbar {
+  height: 3px;
+}
+.sec-nav::-webkit-scrollbar-track {
+  background: var(--rule);
+  border-radius: 2px;
+}
+.sec-nav::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border-radius: 2px;
+}
+.sec-nav::-webkit-scrollbar-thumb:hover {
+  background: var(--ink);
+}
 
 .nav-btn {
   position: relative;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  padding: 11px 17px;
+  padding: 11px 16px;
   border: none;
   background: none;
   color: var(--ink-mid);
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.2s;
+  flex-shrink: 0;
 }
 .nav-btn:hover        { color: var(--red); }
 .nav-btn:focus-visible{ outline: 2px solid var(--red); outline-offset: 1px; }
@@ -544,6 +561,72 @@ body {
   background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.48) 100%);
 }
 
+
+/* ── Active section panel ───────────────────────────────────────────────── */
+
+.active-sec {
+  padding: 32px 0 8px;
+}
+
+.active-sec-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .active-sec-inner { grid-template-columns: 1fr; gap: 20px; }
+}
+
+.active-sec-img-wrap {
+  position: relative;
+}
+
+.active-sec-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.active-sec-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.active-sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.active-sec-desc {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--ink);
+  margin: 0;
+}
+
+.active-sec-tematica {
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--red);
+}
+
+.active-sec-soon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
 
 /* ── Secciones grid ──────────────────────────────────────────────────────── */
 

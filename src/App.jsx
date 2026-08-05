@@ -11,7 +11,19 @@ const TICKER = [
   'INVESTIGACIÓN: Redes de nepotismo documentadas en al menos seis delegaciones capitalinas',
 ]
 
-const NAV = ['Nacional', 'CDMX', 'Política', 'Sociedad', 'Economía', 'Cultura', 'Opinión', 'Multimedia']
+const NAV = [
+  'La Voz de la Banqueta',
+  'El Ojo que Todo lo Ve',
+  'La Cuenta Pendiente',
+  'Negocio de tu Zona',
+  'Aprende y Emprende',
+  'Anuncia, Vende y Gana',
+  'Xpediente del Día',
+  'Lo que No te Contaron',
+  'Xpediente Abierto',
+  'La Calle No Perdona',
+  'Irrelevante pero Importante',
+]
 
 const HERO = {
   tag: 'Investigación Especial',
@@ -216,7 +228,7 @@ function Masthead({ dark, onToggle }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.15, duration: 0.9 }}
       >
-        Documentamos lo que importa
+        Periodismo local desde el aire
       </motion.p>
       <Rule />
     </header>
@@ -266,8 +278,7 @@ function ThemeBtn({ dark, onToggle, className = '' }) {
 
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 
-function Nav({ dark, onToggle }) {
-  const [active, setActive] = useState('Nacional')
+function Nav({ dark, onToggle, active, setActive }) {
   return (
     <motion.nav
       className="sec-nav"
@@ -352,6 +363,44 @@ function Card({ s, index }) {
   )
 }
 
+
+// ─── Active section panel ────────────────────────────────────────────────────
+
+function ActiveSection({ sec }) {
+  const [c1, c2, c3, c4] = sec.img
+  return (
+    <motion.section
+      key={sec.num}
+      className="active-sec"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="active-sec-inner">
+        <div className="active-sec-img-wrap">
+          <div
+            className="img-ph active-sec-img"
+            style={{ background: `linear-gradient(135deg,${c1} 0%,${c2} 35%,${c3} 70%,${c4} 100%)` }}
+            aria-hidden="true"
+          >
+            <div className="img-grain" />
+            <div className="img-vignette" />
+          </div>
+        </div>
+        <div className="active-sec-body">
+          <Tag color={sec.color}>Sección {sec.num}</Tag>
+          <h2 className="active-sec-title" style={{ color: sec.color }}>{sec.name}</h2>
+          <p className="active-sec-desc">
+            {sec.desc}{' '}
+            <span className="active-sec-tematica">(Temática a desarrollar en la sección)</span>
+          </p>
+          <Rule />
+          <p className="active-sec-soon">Contenido próximamente · Xpediente Callejero · EdoMex</p>
+        </div>
+      </div>
+    </motion.section>
+  )
+}
 
 // ─── Secciones grid ──────────────────────────────────────────────────────────
 
@@ -572,6 +621,7 @@ export default function App() {
     if (stored) return stored === 'dark'
     return window.matchMedia('(prefers-color-scheme: dark)').matches
   })
+  const [activeNav, setActiveNav] = useState(NAV[0])
 
   useEffect(() => {
     const theme = dark ? 'dark' : 'light'
@@ -580,16 +630,17 @@ export default function App() {
   }, [dark])
 
   const toggleDark = () => setDark(d => !d)
+  const activeSec = SECCIONES.find(s => s.name === activeNav)
 
   return (
     <div className="newspaper">
       <Masthead dark={dark} onToggle={toggleDark} />
       <Ticker />
-      <Nav dark={dark} onToggle={toggleDark} />
+      <Nav dark={dark} onToggle={toggleDark} active={activeNav} setActive={setActiveNav} />
       <main>
         <Hero />
         <div className="divider" />
-        <SeccionesGrid />
+        {activeSec && <ActiveSection sec={activeSec} />}
         <PullQuote />
         <section className="nac-sec">
           <SecHead title="Nacional" />
