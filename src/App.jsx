@@ -187,26 +187,27 @@ function Masthead({ dark, onToggle }) {
       </div>
       <Rule thick />
       <div className="masthead-title" aria-label={TITLE}>
-        <motion.span
+        <motion.div
           className="masthead-logo-wrap"
-          initial={{ opacity: 0, y: -56, rotateX: 90 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          initial={{ opacity: 0, y: -56 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <img src="/logo_oficial.png" className="masthead-logo" alt="" aria-hidden="true" />
-          <span className="mchar">X</span>
-        </motion.span>
-        {TITLE.slice(1).split('').map((ch, i) => (
-          <motion.span
-            key={i}
-            className={ch === ' ' ? 'mchar mchar--space' : 'mchar'}
-            initial={{ opacity: 0, y: -56, rotateX: 90 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ delay: 0.19 + i * 0.04, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {ch === ' ' ? '\u00a0' : ch}
-          </motion.span>
-        ))}
+        </motion.div>
+        <div className="masthead-text">
+          {TITLE.split('').map((ch, i) => (
+            <motion.span
+              key={i}
+              className={ch === ' ' ? 'mchar mchar--space' : 'mchar'}
+              initial={{ opacity: 0, y: -56, rotateX: 90 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ delay: 0.19 + i * 0.04, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {ch === ' ' ? '\u00a0' : ch}
+            </motion.span>
+          ))}
+        </div>
       </div>
       <Rule thick />
       <motion.p

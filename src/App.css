@@ -145,8 +145,26 @@ body {
   align-items: center;
   padding: 16px 0 12px;
   perspective: 1400px;
+  gap: 14px;
+}
+
+.masthead-logo-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.masthead-logo {
+  height: clamp(70px, 12vw, 160px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.18));
+}
+
+.masthead-text {
+  display: flex;
   flex-wrap: wrap;
-  gap: 0 2px;
+  align-items: baseline;
 }
 
 .mchar {
@@ -163,17 +181,21 @@ body {
   width: clamp(12px, 1.8vw, 26px);
 }
 
-.masthead-logo-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.masthead-logo {
-  height: clamp(70px, 12vw, 160px);
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.18));
+@media (max-width: 640px) {
+  .masthead-title {
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0 14px;
+  }
+  .masthead-logo {
+    height: clamp(100px, 32vw, 150px);
+  }
+  .masthead-text {
+    justify-content: center;
+  }
+  .mchar {
+    letter-spacing: -1px;
+  }
 }
 
 .masthead-tagline {
