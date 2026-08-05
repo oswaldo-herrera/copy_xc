@@ -395,6 +395,12 @@ body {
   display: block;
 }
 
+.hero-img--real {
+  object-fit: contain;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
 .hero-caption {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -417,6 +423,18 @@ body {
   color: var(--ink);
   margin: 0;
   text-wrap: balance;
+}
+
+.hero-intro {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--ink);
+  margin: 0;
+  border-left: 3px solid var(--red);
+  padding-left: 14px;
 }
 
 .hero-sub {

@@ -67,68 +67,112 @@ const SECCIONES = [
   {
     num: '01', color: '#8C1515',
     img: ['#2A0A0A', '#6B1A1A', '#A03030', '#3A0A0A'],
+    imgSrc: '/la_voz_banqueta.png',
     name: 'La Voz de la Banqueta',
-    desc: 'Entrevistas a vecinos de la zona que nos cuentan sobre los problemas reales de su comunidad.',
+    desc: 'Entrevistas a personas de la zona contándonos sobre problemas de su comunidad.',
+    intro: 'Xpediente Callejero… te cuenta cómo gracias al haber levantado la voz, hoy disfrutan de una reubicación favorable de puestos ambulantes… y sale el audio original del chavo que habla.',
+    link: 'https://www.facebook.com/share/r/193WCeu5KY/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '02', color: '#1B4A9B',
     img: ['#050E2A', '#0E2460', '#1A3A9B', '#08183A'],
+    imgSrc: '/nota_ojo_02.png',
     name: 'El Ojo que Todo lo Ve',
     desc: 'La mirada del dron reportando baches, inundaciones y todo lo que afecta al municipio desde arriba.',
+    intro: 'Xpediente Callejero hizo un recorrido por San Miguel Xochimanga en Atizapán de Zaragoza… y sale el audio original de Crystal.',
+    link: 'https://www.facebook.com/share/v/18z3bNH844/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '03', color: '#7A5E18',
     img: ['#1A1508', '#4A3810', '#8B6A20', '#2A2008'],
+    imgSrc: '/la_cuenta_pendiente.png',
     name: 'La Cuenta Pendiente',
-    desc: 'Lo que sucede en cada municipio frente a las promesas incumplidas de los partidos políticos.',
+    desc: 'Lo que te prometieron vs lo que te cumplieron.',
+    intro: 'Xpediente Callejero… vecinos de la Colonia Lomas Boulevares en Tlalnepantla de Baz denuncian al PM Raciel Pérez Cruz… y sale el audio original de la chava que habla.',
+    link: 'https://www.facebook.com/share/v/1GzFd2yEoS/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '04', color: '#1B6B2E',
     img: ['#081A0E', '#10421A', '#1A7A30', '#0A2814'],
+    imgSrc: '/negocio_de_tu_zona.png',
     name: 'Negocio de tu Zona',
-    desc: 'Espacio para que los negocios locales se anuncien y conecten directamente con su comunidad.',
+    desc: 'Aquí se pueden anunciar los negocios de tu zona.',
+    intro: 'Xpediente Callejero… visita el Mercado Municipal de Huixquilucan para que conozcas opciones de servicios y productos que puedes disfrutar… y sale el audio original del chavo que habla.',
+    link: 'https://www.facebook.com/share/v/1Db3n4wtkn/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '05', color: '#5B1B9B',
     img: ['#100820', '#2A1050', '#4A1E8B', '#180A30'],
+    imgSrc: '/aprende_y_emprende.png',
     name: 'Aprende y Emprende',
-    desc: 'Cursos, talleres y recursos de apoyo a la comunidad para crecer y desarrollarse.',
+    desc: 'Para los mexiquenses amantes de la danza.',
+    intro: 'Xpediente Callejero… te invita a disfrutar el próximo Festival Internacional de la Danza del 13 al 16 de agosto… y sale el audio original del chavo que habla.',
+    link: 'https://www.facebook.com/share/v/19akfx4iFv/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '06', color: '#9B5B1B',
     img: ['#200E04', '#5A2E08', '#9B5010', '#301808'],
+    imgSrc: '/anuncia_vende.png',
     name: 'Anuncia, Vende y Gana',
     desc: 'Eventos, descuentos, comida de fin de semana y todo lo que quieras ofrecer en tu zona.',
+    intro: 'Xpediente Callejero… Visita el Restaurante La Cabaña ubicado en Av. Vicente Guerrero en Dos Ríos Huixquilucan EDOMEX… y sale el audio original de la chava que habla.',
+    link: 'https://www.facebook.com/share/v/19NPbxxx9S/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '07', color: '#8C1515',
     img: ['#1A0404', '#580808', '#8C1414', '#280404'],
+    imgSrc: '/xpediente_del_dia.png',
     name: 'Xpediente del Día',
-    desc: 'Lo más importante del día en un solo lugar. Tu resumen esencial de lo que no puedes perderte.',
+    desc: 'Lo más importante del día.',
+    intro: 'Xpediente Callejero… informa el mejoramiento de la Av. Jardines de San Mateo que fue visitada por la Gobernadora de EDOMEX, Delfina Gómez Álvarez… y sale el audio original.',
+    link: 'https://www.facebook.com/share/r/1DUnFgMPpU/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '08', color: '#1B3A7A',
     img: ['#060A18', '#101E50', '#1A308A', '#080E28'],
+    imgSrc: '/nota_no_contaron.png',
     name: 'Lo que No te Contaron',
     desc: 'Te dijeron una cosa y era otra. ¡Aguas! Seguimiento a denuncias ciudadanas.',
+    intro: 'Xpediente Callejero... habitantes de la Zona Azul de Cd. Satélite en Naucalpan de Juárez de EDOMEX… y sale el audio original de la chava que habla.',
+    link: 'https://www.facebook.com/share/r/1E9aULKFuA/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '09', color: '#6B1010',
     img: ['#150404', '#400808', '#6B1010', '#200404'],
+    imgSrc: '/xpediente_abierto.png',
     name: 'Xpediente Abierto',
-    desc: 'Casos profundos de corrupción y abuso con seguimiento continuo. Nada se cierra sin respuesta.',
+    desc: 'Casos más profundos de corrupción y abuso.',
+    intro: 'Xpediente Callejero… nos cuentan las historias de las autoridades locales y XC las investiga… y sale el audio original del chavo que habla (avatar).',
+    link: 'https://www.facebook.com/share/v/1Dk7jR8VUS/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '10', color: '#9B7B1B',
     img: ['#1E1804', '#5A4808', '#9B7B18', '#2C2404'],
+    imgSrc: '/la_calle_no_perdona.png',
     name: 'La Calle No Perdona',
-    desc: 'Momentos absurdos, contenido viral y el análisis chistoso del personaje más honesto del barrio.',
+    desc: 'Humor callejero y momentos absurdos #virales.',
+    intro: 'Xpediente Callejero… captó en una zona del Valle de Toluca a chavos disfrutando del fútbol despidiendo el Mundial 2026… y sale el audio original.',
+    link: 'https://www.facebook.com/share/v/1HmaNRJFZC/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
   {
     num: '11', color: '#2B6B3E',
     img: ['#081410', '#104030', '#1E7048', '#0A2018'],
+    imgSrc: '/irrelevante_pero_importante.png',
     name: 'Irrelevante pero Importante',
-    desc: 'Clima, efemérides, espectáculos, eventos y todo lo que hace único al Estado de México.',
+    desc: 'Un día como hoy — curiosidades en EDOMEX.',
+    intro: 'Xpediente Callejero… te cuenta las efemérides en Nicolás Romero… y sale el audio original del chavo que habla.',
+    link: 'https://www.facebook.com/share/v/1Bdpw6s6Mk/?mibextid=wwXIfr',
+    linkLabel: 'Ver nota',
   },
 ]
 
@@ -307,31 +351,61 @@ function Nav({ dark, onToggle, active, setActive }) {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-function Hero() {
+function Hero({ sec }) {
+  const [c1, c2, c3, c4] = sec ? sec.img : ['#1E1008', '#4A2810', '#7A4A22', '#2E1A08']
+  const bgStyle = { background: `linear-gradient(135deg,${c1} 0%,${c2} 35%,${c3} 70%,${c4} 100%)` }
+
   return (
     <motion.section
+      key={sec ? sec.num : 'hero'}
       className="hero"
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.65, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="hero-media">
-        <ImgPlaceholder variant="hero" className="hero-img" />
-        <p className="hero-caption">CDMX, julio 2026 — Documentación en campo</p>
+        {sec?.imgSrc ? (
+          <img src={sec.imgSrc} className="hero-img hero-img--real" alt={sec.name} />
+        ) : (
+          <div className="img-ph hero-img" style={bgStyle} aria-hidden="true">
+            <div className="img-grain" />
+            <div className="img-vignette" />
+          </div>
+        )}
+        <p className="hero-caption">
+          {sec ? `Sección ${sec.num} · Xpediente Callejero` : 'CDMX, julio 2026 — Documentación en campo'}
+        </p>
       </div>
       <div className="hero-body">
-        <Tag>{HERO.tag}</Tag>
-        <h1 className="hero-hl">{HERO.headline}</h1>
+        <Tag color={sec ? sec.color : undefined}>
+          {sec ? `Sección ${sec.num}` : HERO.tag}
+        </Tag>
+        <h1 className="hero-hl" style={sec ? { color: sec.color } : {}}>
+          {sec ? `Sección: ${sec.name}` : HERO.headline}
+        </h1>
         <Rule />
-        <p className="hero-sub">{HERO.sub}</p>
-        <div className="hero-meta">
-          <span>{HERO.by}</span>
-          <span aria-hidden className="sep">·</span>
-          <span>{HERO.date}</span>
-          <span aria-hidden className="sep">·</span>
-          <span>{HERO.mins} min</span>
-        </div>
-        <button className="read-btn">Leer expediente completo →</button>
+        {sec?.intro && <p className="hero-intro">{sec.intro}</p>}
+        <p className="hero-sub">
+          {sec ? sec.desc : HERO.sub}
+        </p>
+        {!sec && (
+          <div className="hero-meta">
+            <span>{HERO.by}</span>
+            <span aria-hidden className="sep">·</span>
+            <span>{HERO.date}</span>
+            <span aria-hidden className="sep">·</span>
+            <span>{HERO.mins} min</span>
+          </div>
+        )}
+        {sec?.link ? (
+          <a className="read-btn" href={sec.link} target="_blank" rel="noopener noreferrer">
+            {sec.linkLabel || 'Ver nota'} →
+          </a>
+        ) : (
+          <button className="read-btn">
+            {sec ? `Ver sección ${sec.num} →` : 'Leer expediente completo →'}
+          </button>
+        )}
       </div>
     </motion.section>
   )
@@ -638,9 +712,9 @@ export default function App() {
       <Ticker />
       <Nav dark={dark} onToggle={toggleDark} active={activeNav} setActive={setActiveNav} />
       <main>
-        <Hero />
+        <Hero sec={activeSec} />
         <div className="divider" />
-        {activeSec && <ActiveSection sec={activeSec} />}
+        {/* <ActiveSection sec={activeSec} /> */}
         <PullQuote />
         <section className="nac-sec">
           <SecHead title="Nacional" />
