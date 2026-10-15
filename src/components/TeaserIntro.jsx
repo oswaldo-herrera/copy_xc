@@ -63,17 +63,26 @@ export default function TeaserIntro({ src, closable = true }) {
 
   useEffect(() => {
     if (!needsTap) return
+    // Solo estos eventos cuentan como "interacción" para permitir audio:
+    // en Android el toque vale al levantar el dedo (touchend / click),
+    // no al apoyarlo (touchstart / pointerdown).
+    const evs = ['click', 'touchend', 'keydown']
     const unmute = () => {
       const v = videoRef.current
-      if (v) {
-        if (needsTap === 'play') v.currentTime = 0
-        v.muted = false
-        v.play().catch(() => {})
-      }
-      setNeedsTap(false)
+      if (!v) return
+      evs.forEach(e => window.removeEventListener(e, unmute))
+      if (needsTap === 'play') v.currentTime = 0
+      v.muted = false
+      v.play()
+        .then(() => setNeedsTap(false))
+        .catch(() => {
+          // Si aún así lo bloquea, sigue corriendo en silencio y espera otro toque
+          v.muted = true
+          v.play().catch(() => {})
+          evs.forEach(e => window.addEventListener(e, unmute))
+        })
     }
-    const evs = ['pointerdown', 'keydown', 'touchstart']
-    evs.forEach(e => window.addEventListener(e, unmute, { once: true }))
+    evs.forEach(e => window.addEventListener(e, unmute))
     return () => evs.forEach(e => window.removeEventListener(e, unmute))
   }, [needsTap])
 
