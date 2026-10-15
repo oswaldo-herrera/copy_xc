@@ -32,19 +32,20 @@ export default function TeaserIntro({ src, closable = true }) {
     }
   }, [open, closable])
 
+  // Se llama cuando el <video> aparece en pantalla (tras desvanecerse el título).
   // Intenta reproducir con sonido; si el navegador lo bloquea, arranca en
   // silencio y activa el audio con la primera interacción del visitante.
-  useEffect(() => {
-    if (phase !== 'video') return
-    const v = videoRef.current
-    if (!v) return
+  const attachVideo = v => {
+    videoRef.current = v
+    if (!v || v.dataset.started) return
+    v.dataset.started = '1'
     v.muted = false
     v.play().catch(() => {
       v.muted = true
       v.play().catch(() => {})
       setNeedsTap(true)
     })
-  }, [phase])
+  }
 
   useEffect(() => {
     if (!needsTap) return
@@ -110,7 +111,7 @@ export default function TeaserIntro({ src, closable = true }) {
                 transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="teaser-frame">
-                  <video ref={videoRef} src={src} loop playsInline autoPlay />
+                  <video ref={attachVideo} src={src} loop playsInline preload="auto" />
                   <span className="teaser-tag"><span className="live-dot" />Próximamente</span>
                   <AnimatePresence>
                     {needsTap && (
