@@ -201,3 +201,11 @@ export const MUNICIPIOS_DENUNCIA = [
 // Número de WhatsApp que recibe las denuncias, con lada de país (ej. '5215512345678').
 // Vacío: WhatsApp abre el mensaje listo y el usuario elige a quién enviarlo.
 export const WHATSAPP_NUMBER = ''
+
+// Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
+// admin (Supabase). Vacío = no se muestra la intro.
+export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/43097fa6-ec12-48c5-b4ac-f11b74f32d91-narizio.mp4'
+
+// false = el teaser no se puede cerrar y el sitio queda oculto detrás (modo "próximamente").
+// true  = aparece la X para cerrarlo y entrar al sitio.
+export const TEASER_CLOSABLE = false

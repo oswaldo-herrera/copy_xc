@@ -3,11 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import {
   SECCIONES, CATEGORIAS, TICKER, KPIS, MUNICIPIOS, INCIDENTES, TENDENCIA, ESTATUS,
-  ALERTAS, MUNICIPIOS_DENUNCIA, WHATSAPP_NUMBER,
+  ALERTAS, MUNICIPIOS_DENUNCIA, WHATSAPP_NUMBER, TEASER_VIDEO, TEASER_CLOSABLE,
 } from './data'
 import { Btn, Icon, Panel, PanelHead, Tabs, Counter, StatusBadge } from './components/ui'
 import { RankBars, Donut, TrendLine } from './components/Charts'
 import HeatMap from './components/HeatMap'
+import TeaserIntro from './components/TeaserIntro'
 
 const NAV = [
   { id: 'inicio', label: 'Inicio', icon: 'home' },
@@ -749,6 +750,7 @@ export default function App() {
         <Footer onGo={goToCat} />
       </div>
       <WhatsAppFab />
+      <TeaserIntro src={TEASER_VIDEO} closable={TEASER_CLOSABLE} />
       <ExpedienteModal sec={openSec} onClose={closeSec} />
     </div>
   )
