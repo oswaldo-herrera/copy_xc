@@ -10,7 +10,7 @@ const WORD = 'PRÓXIMAMENTE'
 export default function TeaserIntro({ src, closable = true }) {
   const [open, setOpen] = useState(Boolean(src))
   const [phase, setPhase] = useState('title') // title → video
-  const [needsTap, setNeedsTap] = useState(false)
+  const [needsTap, setNeedsTap] = useState(false) // false | 'sound' | 'play'
   const videoRef = useRef(null)
 
   useEffect(() => {
@@ -33,18 +33,32 @@ export default function TeaserIntro({ src, closable = true }) {
   }, [open, closable])
 
   // Se llama cuando el <video> aparece en pantalla (tras desvanecerse el título).
-  // Intenta reproducir con sonido; si el navegador lo bloquea, arranca en
-  // silencio y activa el audio con la primera interacción del visitante.
+  // 1) Arranca SIN sonido (permitido en todos los navegadores).
+  // 2) Ya corriendo, intenta activar el sonido; si el navegador lo frena
+  //    (pausa el video), vuelve a silencio y pide un toque para el audio.
+  // 3) Si ni en silencio puede reproducir (ahorro de batería), pide un toque.
   const attachVideo = v => {
     videoRef.current = v
     if (!v || v.dataset.started) return
     v.dataset.started = '1'
-    v.muted = false
-    v.play().catch(() => {
-      v.muted = true
-      v.play().catch(() => {})
-      setNeedsTap(true)
-    })
+    v.defaultMuted = true
+    v.muted = true
+    v.play()
+      .then(() => {
+        const blocked = () => {
+          v.muted = true
+          v.play().catch(() => setNeedsTap('play'))
+          setNeedsTap('sound')
+        }
+        v.addEventListener('pause', blocked, { once: true })
+        v.muted = false
+        setTimeout(() => {
+          v.removeEventListener('pause', blocked)
+          if (v.muted) return
+          if (v.paused) blocked()
+        }, 400)
+      })
+      .catch(() => setNeedsTap('play'))
   }
 
   useEffect(() => {
@@ -52,6 +66,7 @@ export default function TeaserIntro({ src, closable = true }) {
     const unmute = () => {
       const v = videoRef.current
       if (v) {
+        if (needsTap === 'play') v.currentTime = 0
         v.muted = false
         v.play().catch(() => {})
       }
@@ -121,7 +136,8 @@ export default function TeaserIntro({ src, closable = true }) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
                       >
-                        <Icon name="live" size={16} /> Toca la pantalla para activar el sonido
+                        <Icon name={needsTap === 'play' ? 'play' : 'live'} size={16} />
+                        {needsTap === 'play' ? 'Toca la pantalla para reproducir' : 'Toca la pantalla para activar el sonido'}
                       </motion.span>
                     )}
                   </AnimatePresence>
