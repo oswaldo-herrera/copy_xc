@@ -204,7 +204,7 @@ export const WHATSAPP_NUMBER = ''
 
 // Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
 // admin (Supabase). Vacío = no se muestra la intro.
-export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/ff147b99-3305-4968-800d-b8631ac71a1e-rolas-caption.mp4'
+export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/30084443-0589-45cb-aab8-551983d6de95-chicharo-caption.mp4'
 
 // false = el teaser no se puede cerrar y el sitio queda oculto detrás (modo "próximamente").
 // true  = aparece la X para cerrarlo y entrar al sitio.
