@@ -1,20 +1,22 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import {
-  SECCIONES, CATEGORIAS, TICKER, KPIS, MUNICIPIOS, INCIDENTES, TENDENCIA, ESTATUS,
-  ALERTAS, MUNICIPIOS_DENUNCIA, WHATSAPP_NUMBER, TEASER_VIDEO, TEASER_CLOSABLE,
+  SECCIONES, TICKER, KPIS, MUNICIPIOS, INCIDENTES, TENDENCIA, ESTATUS,
+  ALERTAS, PERSONAJES, MUNICIPIOS_DENUNCIA, WHATSAPP_NUMBER, TEASER_VIDEO, TEASER_CLOSABLE,
 } from './data'
 import { Btn, Icon, Panel, PanelHead, Tabs, Counter, StatusBadge } from './components/ui'
 import { RankBars, Donut, TrendLine } from './components/Charts'
 import HeatMap from './components/HeatMap'
+import { supabase, supabaseReady } from './lib/supabase'
 import TeaserIntro from './components/TeaserIntro'
 
 const NAV = [
   { id: 'inicio', label: 'Inicio', icon: 'home' },
+  { id: 'expedientes', label: 'Secciones', icon: 'folder' },
   { id: 'mapa', label: 'Mapa de calor', icon: 'map' },
   { id: 'datos', label: 'Datos', icon: 'chart' },
-  { id: 'expedientes', label: 'Expedientes', icon: 'folder' },
   { id: 'evidencia', label: 'Evidencia aérea', icon: 'drone' },
   { id: 'denuncia', label: 'Denuncia Ciudadana', icon: 'megaphone' },
   { id: 'nosotros', label: 'Nosotros', icon: 'users' },
@@ -296,44 +298,91 @@ function DataRow() {
 
 // ─── Destacado + alertas ─────────────────────────────────────────────────────
 
-function FeaturedRow({ onOpen }) {
-  const f = SECCIONES[2]
+// Últimas noticias publicadas (admin → Noticias). Sin noticias: alertas de ejemplo.
+function useAlertas() {
+  const [items, setItems] = useState(ALERTAS)
+  useEffect(() => {
+    if (!supabaseReady) return
+    supabase
+      .from('noticias')
+      .select('id, personaje, title, municipio, published_at')
+      .eq('published', true)
+      .order('published_at', { ascending: false })
+      .limit(6)
+      .then(({ data }) => {
+        const rows = (data || []).filter(n => PERSONAJES[n.personaje])
+        if (!rows.length) return
+        const today = new Date().toDateString()
+        setItems(rows.map((n, i) => {
+          const d = new Date(n.published_at)
+          return {
+            id: n.id,
+            who: n.personaje,
+            time: d.toDateString() === today
+              ? d.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', hour12: false })
+              : d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }),
+            municipio: n.municipio || 'Edomex',
+            text: n.title,
+            level: i < 2 ? 'alta' : i < 4 ? 'media' : 'baja',
+          }
+        }))
+      })
+  }, [])
+  return items
+}
+
+function FeaturedRow() {
+  const navigate = useNavigate()
+  const alertas = useAlertas()
+
+  // Abre la página del personaje con la noticia ya abierta en su pop-up
+  const openAlert = a => {
+    const slug = PERSONAJES[a.who].slug
+    if (a.id) navigate(`/personaje/${slug}?nota=${a.id}`)
+    else navigate(`/personaje/${slug}`, {
+      state: { nota: { id: `alerta-${a.time}`, title: a.text, municipio: a.municipio, dateLabel: `Hoy · ${a.time}` } },
+    })
+  }
   return (
     <div className="row row--featured">
       <Panel className="panel--featured">
-        <PanelHead icon="play" title="Video destacado" sub={`Sección ${f.num} · ${f.name}`}>
-          <Btn as="a" variant="ghost" size="sm" iconRight="arrow" href="#expedientes"
-            onClick={e => { e.preventDefault(); scrollTo('expedientes') }}>
+        <PanelHead icon="play" title="Video destacado" sub="Narizio Olfario · Presentador principal">
+          <Btn as="a" variant="ghost" size="sm" iconRight="arrow" href={`/personaje/${PERSONAJES.narizio.slug}`}
+            onClick={e => { e.preventDefault(); navigate(`/personaje/${PERSONAJES.narizio.slug}`) }}>
             Ver todos
           </Btn>
         </PanelHead>
-        <button className="feature" onClick={() => onOpen(f)}>
-          <img src={f.imgSrc} alt="" />
-          <span className="feature-shade" />
-          <motion.span className="play" whileHover={{ scale: 1.12 }} whileTap={{ scale: 0.9 }}>
-            <Icon name="play" size={30} />
-          </motion.span>
-          <span className="feature-body">
-            <span className="badge badge--red">Investigación</span>
-            <span className="feature-title">{f.title}</span>
-            <span className="feature-meta"><Icon name="pin" size={14} /> {f.municipio} · {f.date}</span>
-          </span>
-        </button>
+        {/* Por ahora una imagen fija de Narizio; después se cambia por su video */}
+        <div className="feature feature--still">
+          <img src="/presentador.png" alt="Narizio Olfario, presentador principal de Xpediente Callejero" />
+        </div>
       </Panel>
       <Panel className="panel--alerts" delay={0.1}>
         <PanelHead icon="alert" title="Alertas recientes" sub="Hechos de alto impacto en el Estado de México">
           <span className="chip-live chip-live--red"><span className="live-dot" />En vivo</span>
         </PanelHead>
         <ul className="alerts">
-          {ALERTAS.map((a, i) => (
+          {alertas.map((a, i) => (
             <motion.li
-              key={i}
+              key={a.id || i}
               className={`alert alert--${a.level}`}
+              role="link"
+              tabIndex={0}
+              onClick={() => openAlert(a)}
+              onKeyDown={e => e.key === 'Enter' && openAlert(a)}
+              title={`Ver la noticia en la página de ${PERSONAJES[a.who].name}`}
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
             >
+              <img
+                className="alert-who"
+                src={PERSONAJES[a.who].img}
+                alt={PERSONAJES[a.who].name}
+                title={PERSONAJES[a.who].name}
+                loading="lazy"
+              />
               <span className="alert-time">{a.time}</span>
               <span className="alert-muni">{a.municipio}</span>
               <span className="alert-text">{a.text}</span>
@@ -347,25 +396,33 @@ function FeaturedRow({ onOpen }) {
 
 // ─── Expedientes (secciones) ─────────────────────────────────────────────────
 
-function Expedientes({ query, setQuery, cat, setCat, onOpen }) {
+// Filtros de la sección: Todos + cada personaje
+const FILTROS = [{ id: 'Todos', label: 'Todos' }, ...Object.entries(PERSONAJES).filter(([, p]) => !p.host).map(([id, p]) => ({ id, label: p.name }))]
+
+function Expedientes({ query, setQuery, cat, setCat }) {
+  const navigate = useNavigate()
+  // "Todos" muestra todas las tarjetas; un nombre lleva directo a la página del personaje
+  const pick = id => (id === 'Todos' ? setCat('Todos') : navigate(`/personaje/${PERSONAJES[id].slug}`))
   const q = query.trim().toLowerCase()
-  const list = SECCIONES.filter(s =>
-    (cat === 'Todos' || s.cat === cat) &&
-    (!q || [s.name, s.title, s.municipio, s.folio, s.desc].some(t => t.toLowerCase().includes(q))),
+  // Una tarjeta por personaje (los 12), en el orden oficial
+  const list = Object.values(PERSONAJES).filter(p => !p.host &&
+    (cat === 'Todos' || p.key === cat) &&
+    (!q || [p.name, p.segmento, p.seccion?.name, p.seccion?.title, p.seccion?.municipio, p.seccion?.folio]
+      .some(t => t && t.toLowerCase().includes(q))),
   )
   return (
     <Panel id="expedientes" className="panel--exp">
-      <PanelHead icon="folder" title="Secciones" sub="Nuestras 11 secciones · notas publicadas en campo">
+      <PanelHead icon="folder" title="Secciones" sub="Nuestros 12 personajes · elige uno para ver sus noticias">
         {q && (
           <Btn variant="ghost" size="sm" icon="close" onClick={() => setQuery('')}>“{query}”</Btn>
         )}
       </PanelHead>
-      <Tabs id="cat" items={CATEGORIAS} value={cat} onChange={setCat} small />
+      <Tabs id="cat" items={FILTROS} value={cat} onChange={pick} small />
       <motion.div className="exp-grid" layout>
         <AnimatePresence mode="popLayout">
-          {list.map(s => (
+          {list.map(p => (
             <motion.article
-              key={s.num}
+              key={p.key}
               layout
               className="exp"
               initial={{ opacity: 0, scale: 0.94 }}
@@ -374,39 +431,24 @@ function Expedientes({ query, setQuery, cat, setCat, onOpen }) {
               transition={{ duration: 0.3 }}
               whileHover={{ y: -6 }}
             >
-              <button
-                className={`exp-media${s.video ? ' exp-media--video' : ''}`}
-                onClick={() => onOpen(s)}
-                aria-label={`Abrir expediente ${s.folio}`}
-                onPointerEnter={e => e.currentTarget.querySelector('video')?.play().catch(() => {})}
-                onPointerLeave={e => e.currentTarget.querySelector('video')?.pause()}
-              >
-                {s.video ? (
-                  <video src={s.video} poster={s.imgSrc} muted loop playsInline preload="metadata" />
-                ) : (
-                  <img src={s.imgSrc} alt="" loading="lazy" />
-                )}
-                <span className="exp-cat">{s.cat}</span>
-                {s.video && <span className="exp-vid"><span className="live-dot" />Video</span>}
-                <span className="exp-num">{s.num}</span>
-                <span className="exp-play"><Icon name="play" size={18} /></span>
-              </button>
-              <div className="exp-body">
-                <p className="exp-folio">{s.folio}</p>
-                <h3 className="exp-title">{s.title}</h3>
-                {s.tagline && <p className="exp-tagline">{s.tagline}</p>}
-                <p className="exp-sec">{s.name}</p>
-                <p className="exp-meta"><Icon name="pin" size={13} />{s.municipio}<span>{s.date}</span></p>
-                <div className="exp-foot">
-                  <StatusBadge status={s.status} />
-                  <Btn variant="ghost" size="sm" iconRight="arrow" onClick={() => onOpen(s)}>Abrir</Btn>
-                </div>
-              </div>
+              <Link to={`/personaje/${p.slug}`} className="exp-link" aria-label={`Ir a la sección de ${p.name}`}>
+                <span className="exp-media exp-media--char">
+                  <img src={p.img} alt="" loading="lazy" />
+                  <span className="exp-play"><Icon name="arrow" size={18} /></span>
+                </span>
+                <span className="exp-name">{p.name}</span>
+              </Link>
             </motion.article>
           ))}
         </AnimatePresence>
       </motion.div>
-      {list.length === 0 && <p className="empty">Sin expedientes que coincidan con la búsqueda.</p>}
+      {list.length === 0 && (
+        <p className="empty">
+          {cat !== 'Todos' && PERSONAJES[cat]
+            ? <>Aún no hay notas de {PERSONAJES[cat].name} aquí. <Link to={`/personaje/${PERSONAJES[cat].slug}`}>Ver su página →</Link></>
+            : 'Sin expedientes que coincidan con la búsqueda.'}
+        </p>
+      )}
     </Panel>
   )
 }
@@ -665,9 +707,9 @@ function Footer({ onGo }) {
         <div>
           <p className="footer-heading">Secciones</p>
           <ul className="footer-list footer-list--cols">
-            {CATEGORIAS.map(c => (
-              <li key={c}>
-                <a href="#expedientes" onClick={e => { e.preventDefault(); onGo(c) }}>{c}</a>
+            {Object.entries(PERSONAJES).map(([key, p]) => (
+              <li key={key}>
+                <Link to={`/personaje/${p.slug}`}>{p.name}</Link>
               </li>
             ))}
           </ul>
@@ -723,9 +765,17 @@ export default function App() {
   const [openSec, setOpenSec] = useState(null)
   const active = useScrollSpy(SPY_IDS)
   const closeSec = useCallback(() => setOpenSec(null), [])
+
+  // Al llegar con un ancla (p. ej. /#denuncia desde la página de un personaje)
+  const { hash } = useLocation()
+  useEffect(() => {
+    if (!hash) return
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' }), 400)
+    return () => clearTimeout(t)
+  }, [hash])
   const [cat, setCat] = useState('Todos')
 
-  // Desde el pie de página: filtra Secciones por categoría y lleva a ellas
+  // Desde el pie de página: filtra Secciones por personaje y lleva a ellas
   const goToCat = c => {
     setQuery('')
     setCat(c)
@@ -739,11 +789,11 @@ export default function App() {
         <Header query={query} setQuery={setQuery} onMenu={() => setMenu(true)} />
         <Ticker />
         <main className="content">
+          <FeaturedRow />
+          <Expedientes query={query} setQuery={setQuery} cat={cat} setCat={setCat} />
           <Kpis />
           <MapRow />
           <DataRow />
-          <FeaturedRow onOpen={setOpenSec} />
-          <Expedientes query={query} setQuery={setQuery} cat={cat} setCat={setCat} onOpen={setOpenSec} />
           <EvidenceRow onOpen={setOpenSec} />
           <Denuncia />
         </main>

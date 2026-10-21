@@ -7,6 +7,7 @@ import { supabase, supabaseReady } from '../lib/supabase'
 import { Btn, Icon } from '../components/ui'
 import VideosModule from './VideosModule'
 import CalendarModule from './CalendarModule'
+import NoticiasModule from './NoticiasModule'
 
 // ─── Sesión ──────────────────────────────────────────────────────────────────
 
@@ -124,6 +125,7 @@ function NoAccess({ email, state }) {
 
 const MODULES = [
   { to: 'videos', label: 'Videos', icon: 'play' },
+  { to: 'noticias', label: 'Noticias', icon: 'doc' },
   { to: 'calendario', label: 'Calendario', icon: 'clock' },
   { label: 'Denuncias', icon: 'megaphone', soon: true },
   { label: 'Expedientes', icon: 'folder', soon: true },
@@ -157,6 +159,7 @@ function Layout({ session }) {
         <Routes>
           <Route index element={<Navigate to="videos" replace />} />
           <Route path="videos" element={<VideosModule />} />
+          <Route path="noticias" element={<NoticiasModule />} />
           <Route path="calendario" element={<CalendarModule />} />
           <Route path="*" element={<Navigate to="videos" replace />} />
         </Routes>

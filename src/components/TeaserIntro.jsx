@@ -4,11 +4,19 @@ import { Icon } from './ui'
 
 const WORD = 'PRÓXIMAMENTE'
 
+// Se reinicia solo al recargar la página: al cerrarlo, navegar entre
+// páginas del sitio (p. ej. a un personaje) ya no lo vuelve a mostrar.
+let dismissed = false
+
 // Intro: "PRÓXIMAMENTE" se arma y se difumina; después el teaser se repite
 // con sonido sobre la página desenfocada. Con closable=false no se puede cerrar
 // y el sitio queda bloqueado detrás del teaser.
 export default function TeaserIntro({ src, closable = true }) {
-  const [open, setOpen] = useState(Boolean(src))
+  const [open, setOpenState] = useState(Boolean(src) && !dismissed)
+  const setOpen = v => {
+    if (!v) dismissed = true
+    setOpenState(v)
+  }
   const [phase, setPhase] = useState('title') // title → video
   const [needsTap, setNeedsTap] = useState(false) // false | 'sound' | 'play'
   const videoRef = useRef(null)

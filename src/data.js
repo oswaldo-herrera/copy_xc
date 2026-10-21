@@ -2,7 +2,7 @@
 
 export const SECCIONES = [
   {
-    num: '01', folio: 'XC-EDOMEX-2026-07-001', cat: 'Comunidad', status: 'Publicado',
+    num: '01', who: 'donaPelos', folio: 'XC-EDOMEX-2026-07-001', cat: 'Comunidad', status: 'Publicado',
     municipio: 'Estado de México', date: '19 jul 2026',
     imgSrc: '/la_voz_banqueta.png',
     video: '/lizzete_video.mp4',
@@ -14,7 +14,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/r/193WCeu5KY/?mibextid=wwXIfr',
   },
   {
-    num: '02', folio: 'XC-ATIZAPAN-2026-07-002', cat: 'Evidencia aérea', status: 'En seguimiento',
+    num: '02', who: 'misteriozo', folio: 'XC-ATIZAPAN-2026-07-002', cat: 'Evidencia aérea', status: 'En seguimiento',
     municipio: 'Atizapán de Zaragoza', date: '18 jul 2026',
     imgSrc: '/nota_ojo_02.png',
     name: 'El Ojo que Todo lo Ve',
@@ -24,7 +24,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/18z3bNH844/?mibextid=wwXIfr',
   },
   {
-    num: '03', folio: 'XC-TLALNEPANTLA-2026-07-003', cat: 'Denuncia', status: 'En investigación',
+    num: '03', who: 'elPoli', folio: 'XC-TLALNEPANTLA-2026-07-003', cat: 'Denuncia', status: 'En investigación',
     municipio: 'Tlalnepantla de Baz', date: '17 jul 2026',
     imgSrc: '/la_cuenta_pendiente.png',
     name: 'La Cuenta Pendiente',
@@ -34,7 +34,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/1GzFd2yEoS/?mibextid=wwXIfr',
   },
   {
-    num: '04', folio: 'XC-HUIXQUILUCAN-2026-07-004', cat: 'Comercio local', status: 'Publicado',
+    num: '04', who: 'pancracio', folio: 'XC-HUIXQUILUCAN-2026-07-004', cat: 'Comercio local', status: 'Publicado',
     municipio: 'Huixquilucan', date: '16 jul 2026',
     imgSrc: '/negocio_de_tu_zona.png',
     name: 'Negocio de tu Zona',
@@ -44,7 +44,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/1Db3n4wtkn/?mibextid=wwXIfr',
   },
   {
-    num: '05', folio: 'XC-EDOMEX-2026-07-005', cat: 'Cultura', status: 'Publicado',
+    num: '05', who: 'dulceVictoria', folio: 'XC-EDOMEX-2026-07-005', cat: 'Cultura', status: 'Publicado',
     municipio: 'Estado de México', date: '15 jul 2026',
     imgSrc: '/aprende_y_emprende.png',
     name: 'Aprende y Emprende',
@@ -54,7 +54,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/19akfx4iFv/?mibextid=wwXIfr',
   },
   {
-    num: '06', folio: 'XC-HUIXQUILUCAN-2026-07-006', cat: 'Comercio local', status: 'Publicado',
+    num: '06', who: 'laMari', folio: 'XC-HUIXQUILUCAN-2026-07-006', cat: 'Comercio local', status: 'Publicado',
     municipio: 'Huixquilucan', date: '14 jul 2026',
     imgSrc: '/anuncia_vende.png',
     name: 'Anuncia, Vende y Gana',
@@ -64,7 +64,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/19NPbxxx9S/?mibextid=wwXIfr',
   },
   {
-    num: '07', folio: 'XC-NAUCALPAN-2026-07-007', cat: 'Obra pública', status: 'En seguimiento',
+    num: '07', who: 'rolando', folio: 'XC-NAUCALPAN-2026-07-007', cat: 'Obra pública', status: 'En seguimiento',
     municipio: 'Naucalpan de Juárez', date: '13 jul 2026',
     imgSrc: '/xpediente_del_dia.png',
     name: 'Xpediente del Día',
@@ -74,7 +74,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/r/1DUnFgMPpU/?mibextid=wwXIfr',
   },
   {
-    num: '08', folio: 'XC-NAUCALPAN-2026-07-008', cat: 'Denuncia', status: 'En seguimiento',
+    num: '08', who: 'chicharo', folio: 'XC-NAUCALPAN-2026-07-008', cat: 'Denuncia', status: 'En seguimiento',
     municipio: 'Naucalpan de Juárez', date: '12 jul 2026',
     imgSrc: '/nota_no_contaron.png',
     name: 'Lo que No te Contaron',
@@ -84,7 +84,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/r/1E9aULKFuA/?mibextid=wwXIfr',
   },
   {
-    num: '09', folio: 'XC-EDOMEX-2026-07-009', cat: 'Denuncia', status: 'En investigación',
+    num: '09', who: 'yakazi', folio: 'XC-EDOMEX-2026-07-009', cat: 'Denuncia', status: 'En investigación',
     municipio: 'Estado de México', date: '11 jul 2026',
     imgSrc: '/xpediente_abierto.png',
     name: 'Xpediente Abierto',
@@ -94,7 +94,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/1Dk7jR8VUS/?mibextid=wwXIfr',
   },
   {
-    num: '10', folio: 'XC-TOLUCA-2026-07-010', cat: 'Viral', status: 'Publicado',
+    num: '10', who: 'betoBarrigol', folio: 'XC-TOLUCA-2026-07-010', cat: 'Viral', status: 'Publicado',
     municipio: 'Toluca', date: '10 jul 2026',
     imgSrc: '/la_calle_no_perdona.png',
     name: 'La Calle No Perdona',
@@ -104,7 +104,7 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/1HmaNRJFZC/?mibextid=wwXIfr',
   },
   {
-    num: '11', folio: 'XC-NICOLASROMERO-2026-07-011', cat: 'Cultura', status: 'Publicado',
+    num: '11', who: 'elVrayan', folio: 'XC-NICOLASROMERO-2026-07-011', cat: 'Cultura', status: 'Publicado',
     municipio: 'Nicolás Romero', date: '09 jul 2026',
     imgSrc: '/irrelevante_pero_importante.png',
     name: 'Irrelevante pero Importante',
@@ -114,6 +114,10 @@ export const SECCIONES = [
     link: 'https://www.facebook.com/share/v/1Bdpw6s6Mk/?mibextid=wwXIfr',
   },
 ]
+
+export const slugify = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
 
 export const CATEGORIAS = ['Todos', ...new Set(SECCIONES.map(s => s.cat))]
 
@@ -186,12 +190,32 @@ export const ESTATUS = [
   { label: 'Cerrados', value: 219, icon: 'check', tone: 'green' },
 ]
 
+// Personajes de Xpediente Callejero (imágenes en /public)
+export const PERSONAJES = {
+  // host: presentador principal; tiene página pero no tarjeta en la cuadrícula de 12
+  // pos: encuadre de la imagen cuando no es retrato
+  narizio: { name: 'Narizio Olfario', segmento: 'Presentador principal', img: '/presentador.png', pos: '17% center', host: true },
+  rolando: { name: 'El Rol Ando', segmento: 'Dando el rol', img: '/rolando.png' },
+  donaPelos: { name: 'Doña Pelos', segmento: 'La voz de la banqueta', img: '/do%C3%B1a_pelos.png' },
+  chicharo: { name: '«El Chícharo»', segmento: 'Lo que no te contaron', img: '/chicharo.png' },
+  pancracio: { name: 'Pancracio', segmento: 'Con las manos en la masa', img: '/pancracio.png' },
+  laMari: { name: 'La Mari', segmento: 'Sobre la mesa', img: '/lamari.png' },
+  misteriozo: { name: 'Mister Iozo', segmento: 'El ojo que todo lo ve', img: '/misteriozo.png' },
+  elPoli: { name: 'El Poli', segmento: 'La cuenta pendiente', img: '/elpoli.png' },
+  elVrayan: { name: 'El Vrayan', segmento: 'Chécatesta', img: '/elvrayan.png' },
+  yakazi: { name: 'Yakazi', segmento: 'Ya merito', img: '/yakazi.png' },
+  veranito: { name: 'Vera Nito', segmento: 'Clima', img: '/veranito.png' },
+  betoBarrigol: { name: 'Beto Barrigol', segmento: 'Deportes', img: '/betobarrigol.png' },
+  dulceVictoria: { name: 'Dulce Victoria', segmento: 'Deportes', img: '/dulcevoctoria.png' },
+}
+
 export const ALERTAS = [
-  { time: '18:24', municipio: 'Ecatepec', text: 'Vecinos reportan toma clandestina en zona industrial', level: 'alta' },
-  { time: '16:17', municipio: 'Naucalpan', text: 'Denuncian obra detenida en desarrollo urbano', level: 'alta' },
-  { time: '14:03', municipio: 'Tultitlán', text: 'Reportan quema de residuos en predio baldío', level: 'media' },
-  { time: '11:46', municipio: 'Cuautitlán Izcalli', text: 'Nuevas denuncias por fugas de agua sin atender', level: 'media' },
-  { time: '09:32', municipio: 'Tlalnepantla', text: 'Usuarios señalan transporte público irregular', level: 'baja' },
+  { who: 'rolando', time: '18:24', municipio: 'Ecatepec', text: 'Vecinos reportan toma clandestina en zona industrial', level: 'alta' },
+  { who: 'donaPelos', time: '16:17', municipio: 'Naucalpan', text: 'Denuncian obra detenida en desarrollo urbano', level: 'alta' },
+  { who: 'chicharo', time: '14:03', municipio: 'Tultitlán', text: 'Reportan quema de residuos en predio baldío', level: 'media' },
+  { who: 'pancracio', time: '11:46', municipio: 'Cuautitlán Izcalli', text: 'Nuevas denuncias por fugas de agua sin atender', level: 'media' },
+  { who: 'misteriozo', time: '09:32', municipio: 'Tlalnepantla', text: 'Usuarios señalan transporte público irregular', level: 'baja' },
+  { who: 'veranito', time: '08:15', municipio: 'Toluca', text: 'Alerta por lluvias fuertes en el Valle de Toluca', level: 'media' },
 ]
 
 export const MUNICIPIOS_DENUNCIA = [
@@ -204,8 +228,15 @@ export const WHATSAPP_NUMBER = ''
 
 // Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
 // admin (Supabase). Vacío = no se muestra la intro.
-export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/0335adfd-f812-4a01-8c26-d1cff668a228-misteriozo-caption.mp4'
+export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/0a97bce0-f0e2-421e-9fa0-4dccd7df5f26-donapelos-caption.mp4'
 
-// false = el teaser no se puede cerrar y el sitio queda oculto detrás (modo "próximamente").
-// true  = aparece la X para cerrarlo y entrar al sitio.
+// false = el teaser no se puede cerrar (sin X) y el sitio queda oculto detrás, también en local.
+// Para volver a mostrar la X solo en local: import.meta.env.DEV · en todos lados: true
 export const TEASER_CLOSABLE = false
+
+// Cada personaje tiene su página: /personaje/<slug>
+Object.entries(PERSONAJES).forEach(([key, p]) => {
+  p.key = key
+  p.slug = slugify(p.name)
+  p.seccion = SECCIONES.find(s => s.who === key) || null
+})
