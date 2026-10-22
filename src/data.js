@@ -228,7 +228,7 @@ export const WHATSAPP_NUMBER = ''
 
 // Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
 // admin (Supabase). Vacío = no se muestra la intro.
-export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/0a97bce0-f0e2-421e-9fa0-4dccd7df5f26-donapelos-caption.mp4'
+export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/e4b4c7ca-9fd7-402c-b260-ad94e8a5ea4f-poli-caption.mp4'
 
 // false = el teaser no se puede cerrar (sin X) y el sitio queda oculto detrás, también en local.
 // Para volver a mostrar la X solo en local: import.meta.env.DEV · en todos lados: true
