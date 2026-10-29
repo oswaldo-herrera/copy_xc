@@ -2,7 +2,7 @@
 
 export const SECCIONES = [
   {
-    num: '01', who: 'donaPelos', folio: 'XC-EDOMEX-2026-07-001', cat: 'Comunidad', status: 'Publicado',
+    num: '01', who: 'donaPelos', reporter: 'lizzet', folio: 'XC-EDOMEX-2026-07-001', cat: 'Comunidad', status: 'Publicado',
     municipio: 'Estado de México', date: '19 jul 2026',
     imgSrc: '/la_voz_banqueta.png',
     video: '/lizzete_video.mp4',
@@ -194,19 +194,20 @@ export const ESTATUS = [
 export const PERSONAJES = {
   // host: presentador principal; tiene página pero no tarjeta en la cuadrícula de 12
   // pos: encuadre de la imagen cuando no es retrato
-  narizio: { name: 'Narizio Olfario', segmento: 'Presentador principal', img: '/presentador.png', pos: '17% center', host: true },
-  rolando: { name: 'El Rol Ando', segmento: 'Dando el rol', img: '/rolando.png' },
-  donaPelos: { name: 'Doña Pelos', segmento: 'La voz de la banqueta', img: '/do%C3%B1a_pelos.png' },
-  chicharo: { name: '«El Chícharo»', segmento: 'Lo que no te contaron', img: '/chicharo.png' },
-  pancracio: { name: 'Pancracio', segmento: 'Con las manos en la masa', img: '/pancracio.png' },
-  laMari: { name: 'La Mari', segmento: 'Sobre la mesa', img: '/lamari.png' },
-  misteriozo: { name: 'Mister Iozo', segmento: 'El ojo que todo lo ve', img: '/misteriozo.png' },
-  elPoli: { name: 'El Poli', segmento: 'La cuenta pendiente', img: '/elpoli.png' },
-  elVrayan: { name: 'El Vrayan', segmento: 'Chécatesta', img: '/elvrayan.png' },
-  yakazi: { name: 'Yakazi', segmento: 'Ya merito', img: '/yakazi.png' },
-  veranito: { name: 'Vera Nito', segmento: 'Clima', img: '/veranito.png' },
-  betoBarrigol: { name: 'Beto Barrigol', segmento: 'Deportes', img: '/betobarrigol.png' },
-  dulceVictoria: { name: 'Dulce Victoria', segmento: 'Deportes', img: '/dulcevoctoria.png' },
+  narizio: { name: 'Narizio Olfario', segmento: 'Presentador principal', img: '/personajes/NARIZIO.png', host: true },
+  lizzet: { name: 'Lizzet Arriaga', segmento: 'Periodismo local', img: '/lizzet_arriaga.jpg', pos: '54% top', host: true, kicker: 'Reportera' },
+  rolando: { name: 'El Rol Ando', segmento: 'Dando el rol', img: '/personajes/EL%20ROL%20ANDO.png' },
+  donaPelos: { name: 'Doña Pelos', segmento: 'La voz de la banqueta', img: '/personajes/DO%C3%91A%20PELOS.png' },
+  chicharo: { name: '«El Chícharo»', segmento: 'Lo que no te contaron', img: '/personajes/EL%20CH%C3%8DCHARO.png' },
+  pancracio: { name: 'Pancracio', segmento: 'Con las manos en la masa', img: '/personajes/PANCRACIO%20MIGAJON.png' },
+  laMari: { name: 'La Mari', segmento: 'Sobre la mesa', img: '/personajes/LA%20MARI.png' },
+  misteriozo: { name: 'Mister Iozo', segmento: 'El ojo que todo lo ve', img: '/personajes/MISTER%20IOZO.png' },
+  elPoli: { name: 'El Poli', segmento: 'La cuenta pendiente', img: '/personajes/EL%20POLI.png' },
+  elVrayan: { name: 'El Vrayan', segmento: 'Chécatesta', img: '/personajes/EL%20VRAYAN.png' },
+  yakazi: { name: 'Yakazi', segmento: 'Ya merito', img: '/personajes/YAKAZI.png' },
+  veranito: { name: 'Vera Nito', segmento: 'Clima', img: '/personajes/VERA%20NITA.png' },
+  betoBarrigol: { name: 'Beto Barrigol', segmento: 'Deportes', img: '/personajes/BETO%20BARRIGOL.png' },
+  dulceVictoria: { name: 'Dulce Victoria', segmento: 'Deportes', img: '/personajes/DULCE%20VICTORIA.png' },
 }
 
 export const ALERTAS = [
@@ -228,15 +229,14 @@ export const WHATSAPP_NUMBER = ''
 
 // Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
 // admin (Supabase). Vacío = no se muestra la intro.
-export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/e4b4c7ca-9fd7-402c-b260-ad94e8a5ea4f-poli-caption.mp4'
+export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/02a90e14-b512-4930-b2c0-c0eef4b5fcf2-yakazi-caption.mp4'
 
-// false = el teaser no se puede cerrar (sin X) y el sitio queda oculto detrás, también en local.
-// Para volver a mostrar la X solo en local: import.meta.env.DEV · en todos lados: true
+// Sin X en ningún lado: false · con X en todos lados: true
 export const TEASER_CLOSABLE = false
 
 // Cada personaje tiene su página: /personaje/<slug>
 Object.entries(PERSONAJES).forEach(([key, p]) => {
   p.key = key
   p.slug = slugify(p.name)
-  p.seccion = SECCIONES.find(s => s.who === key) || null
+  p.seccion = SECCIONES.find(s => s.who === key || s.reporter === key) || null
 })

@@ -146,7 +146,7 @@ export default function PersonajePage() {
           <nav className="sp-crumbs" aria-label="Ruta">
             <Link to="/">Inicio</Link>
             <span aria-hidden>/</span>
-            <Link to="/#expedientes">Personajes</Link>
+            <Link to="/#expedientes">Informantes</Link>
             <span aria-hidden>/</span>
             <span>{p.name}</span>
           </nav>
@@ -164,7 +164,7 @@ export default function PersonajePage() {
             <img src={p.img} alt={p.name} style={p.pos ? { objectPosition: p.pos } : undefined} />
           </div>
           <div className="sp-intro">
-            <p className="adm-kicker">Personaje · Xpediente Callejero</p>
+            <p className="adm-kicker">{p.kicker || 'Personaje'} · Xpediente Callejero</p>
             <h1 className="sp-title">{p.name}</h1>
             {p.segmento && <p className="sp-segment">{p.segmento}</p>}
             {s ? (
@@ -222,8 +222,8 @@ export default function PersonajePage() {
           )}
         </section>
 
-        <section className="sp-others" aria-label="Otros personajes">
-          <h2 className="panel-title"><Icon name="users" size={17} className="panel-title-ico" />Otros personajes</h2>
+        <section className="sp-others" aria-label="Otros informantes">
+          <h2 className="panel-title"><Icon name="users" size={17} className="panel-title-ico" />Otros informantes</h2>
           <div className="sp-others-row">
             {others.map(o => (
               <Link key={o.key} to={`/personaje/${o.slug}`} className="sp-other">

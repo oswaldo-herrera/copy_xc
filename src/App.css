@@ -78,7 +78,9 @@ a { color: inherit; }
 .row { display: grid; gap: 16px; }
 .row--map      { grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); }
 .row--data     { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, .9fr); }
-.row--featured { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.row--featured { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.row--featured .panel--alerts { grid-column: 1 / -1; }
+.panel--lizzet .feature--video { aspect-ratio: 957 / 537; }
 .row--evidence { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
 
 /* ── Sello (logo recoloreado) ────────────────────────────────────────── */
@@ -88,8 +90,8 @@ a { color: inherit; }
   height: 44px;
   flex-shrink: 0;
   background: var(--yellow);
-  -webkit-mask: url('/logo_oficial.png') center / contain no-repeat;
-          mask: url('/logo_oficial.png') center / contain no-repeat;
+  -webkit-mask: url('/logos/LOGO%20SELLO%20BLANCO.png') center / contain no-repeat;
+          mask: url('/logos/LOGO%20SELLO%20BLANCO.png') center / contain no-repeat;
 }
 .stamp--lg { width: 56px; height: 56px; }
 .stamp--side { width: 132px; height: 132px; background: #fff; }
@@ -190,7 +192,7 @@ a { color: inherit; }
 .header {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: 28px;
   padding: 20px 24px;
@@ -210,6 +212,7 @@ a { color: inherit; }
 .header > :not(.header-bg):not(.menu-btn) { position: relative; }
 
 .brand { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 4px; }
+.brand-logo { grid-column: 1 / -1; display: block; width: min(300px, 100%); height: auto; }
 .brand-x {
   font-family: var(--display);
   font-weight: 700;
@@ -858,6 +861,8 @@ a { color: inherit; }
 .feature--still { aspect-ratio: 957 / 537; cursor: default; }
 .feature--still img { object-fit: contain; filter: none; }
 .feature--still:hover img { transform: none; }
+.feature--video { cursor: default; background: #000; }
+.feature--video video { width: 100%; height: 100%; object-fit: contain; background: #000; }
 .feature-shade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,.92)); }
 .feature-body {
   position: absolute;
@@ -986,7 +991,7 @@ a { color: inherit; }
   transition: color .25s;
 }
 .exp:hover .exp-name { color: var(--red-2); }
-.exp-media--char img { object-position: center 15%; filter: none; }
+.exp-media--char img { object-position: center top; filter: none; }
 .exp:hover .exp-media--char img { transform: scale(1.1); }
 .exp-who {
   position: absolute;
@@ -1576,7 +1581,7 @@ body.teaser-open { overflow: hidden; }
   border: 1px solid var(--line-2);
   box-shadow: 0 20px 50px rgba(0,0,0,.6), 0 0 40px rgba(140, 15, 20, .25);
 }
-.sp-char img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; transition: transform .8s var(--ease); }
+.sp-char img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .8s var(--ease); }
 .sp-char:hover img { transform: scale(1.06); }
 .sp-num {
   position: absolute;
@@ -1643,7 +1648,7 @@ body.teaser-open { overflow: hidden; }
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center top;
   border-radius: 6px;
   border: 1px solid var(--line);
   transition: transform .3s var(--ease), border-color .3s;
@@ -1723,6 +1728,7 @@ body.teaser-open { overflow: hidden; }
   .content { padding: 12px 12px 24px; gap: 12px; }
   .header { padding: 16px; }
   .brand-x { font-size: 64px; }
+  .brand-logo { width: min(210px, 100%); }
   .brand-top { font-size: 32px; }
   .brand-bottom { font-size: 18px; }
   .brand-pillars { font-size: 9px; letter-spacing: .14em; }

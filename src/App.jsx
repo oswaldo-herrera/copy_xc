@@ -113,27 +113,15 @@ function Header({ query, setQuery, onMenu }) {
       <button className="menu-btn" onClick={onMenu} aria-label="Abrir menú"><Icon name="menu" size={22} /></button>
 
       <div className="brand">
-        <motion.span
-          className="brand-x"
-          initial={{ scale: 2.4, opacity: 0, rotate: -12 }}
-          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+        <motion.img
+          className="brand-logo"
+          src="/logos/LOGO%20SOBRE%20OSCUROS.png"
+          alt="Xpediente Callejero"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >X</motion.span>
-        <div className="brand-words">
-          <motion.span className="brand-top" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
-            PEDIENTE
-          </motion.span>
-          <motion.span className="brand-bottom" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-            CALLEJERO
-          </motion.span>
-        </div>
-        <p className="brand-pillars">Periodismo · Ciudadanía · Investigación · Resultados</p>
+        />
       </div>
-
-      <motion.div className="claim" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-        <p>Abrimos el expediente.</p>
-        <p className="claim-hl">Cerramos con la verdad.</p>
-      </motion.div>
 
       <div className="header-tools">
         <label className="search">
@@ -305,7 +293,7 @@ function useAlertas() {
     if (!supabaseReady) return
     supabase
       .from('noticias')
-      .select('id, personaje, title, municipio, published_at')
+      .select('*') // incluye "nivel" si ya se corrió 04_noticias_portada.sql
       .eq('published', true)
       .order('published_at', { ascending: false })
       .limit(6)
@@ -323,7 +311,7 @@ function useAlertas() {
               : d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' }),
             municipio: n.municipio || 'Edomex',
             text: n.title,
-            level: i < 2 ? 'alta' : i < 4 ? 'media' : 'baja',
+            level: n.nivel || (i < 2 ? 'alta' : i < 4 ? 'media' : 'baja'),
           }
         }))
       })
@@ -331,9 +319,32 @@ function useAlertas() {
   return items
 }
 
+// Noticia marcada como destacada en el admin; sin ninguna, se queda la imagen de Narizio.
+function useDestacada() {
+  const [nota, setNota] = useState(null)
+  useEffect(() => {
+    if (!supabaseReady) return
+    supabase
+      .from('noticias')
+      .select('*')
+      .eq('published', true)
+      .eq('destacada', true)
+      .order('published_at', { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        const n = data?.[0]
+        if (n && PERSONAJES[n.personaje] && (n.video_url || n.cover_url)) setNota(n)
+      })
+  }, [])
+  return nota
+}
+
 function FeaturedRow() {
   const navigate = useNavigate()
   const alertas = useAlertas()
+  const destacada = useDestacada()
+  const dp = destacada && PERSONAJES[destacada.personaje]
+  const playable = /\.(mp4|webm|mov)(\?|$)/i.test(destacada?.video_url || '')
 
   // Abre la página del personaje con la noticia ya abierta en su pop-up
   const openAlert = a => {
@@ -346,19 +357,41 @@ function FeaturedRow() {
   return (
     <div className="row row--featured">
       <Panel className="panel--featured">
-        <PanelHead icon="play" title="Video destacado" sub="Narizio Olfario · Presentador principal">
+        <PanelHead icon="play" title="Narizio Olfario" sub={dp ? `${dp.name} · ${destacada.title}` : 'Presentador principal'}>
           <Btn as="a" variant="ghost" size="sm" iconRight="arrow" href={`/personaje/${PERSONAJES.narizio.slug}`}
             onClick={e => { e.preventDefault(); navigate(`/personaje/${PERSONAJES.narizio.slug}`) }}>
             Ver todos
           </Btn>
         </PanelHead>
-        {/* Por ahora una imagen fija de Narizio; después se cambia por su video */}
-        <div className="feature feature--still">
-          <img src="/presentador.png" alt="Narizio Olfario, presentador principal de Xpediente Callejero" />
+        {destacada && playable ? (
+          <div className="feature feature--video">
+            <video src={destacada.video_url} poster={destacada.cover_url || undefined} controls playsInline preload="metadata" />
+          </div>
+        ) : destacada ? (
+          <button className="feature" onClick={() => navigate(`/personaje/${dp.slug}?nota=${destacada.id}`)} aria-label={`Ver: ${destacada.title}`}>
+            <img src={destacada.cover_url || dp.img} alt="" />
+            <span className="feature-shade" />
+            <span className="play"><Icon name="play" size={26} /></span>
+          </button>
+        ) : (
+          <div className="feature feature--still">
+            <img src="/presentador.png" alt="Narizio Olfario, presentador principal de Xpediente Callejero" />
+          </div>
+        )}
+      </Panel>
+      <Panel className="panel--lizzet" delay={0.1}>
+        <PanelHead icon="play" title="Lizzet Arriaga" sub="Periodismo local: desde el aire lo vemos, pero al ras de calle lo entendemos.">
+          <Btn as="a" variant="ghost" size="sm" iconRight="arrow" href={`/personaje/${PERSONAJES.lizzet.slug}`}
+            onClick={e => { e.preventDefault(); navigate(`/personaje/${PERSONAJES.lizzet.slug}`) }}>
+            Ver todos
+          </Btn>
+        </PanelHead>
+        <div className="feature feature--video">
+          <video src="/lizzete_video.mp4" poster="/lizzet_arriaga.jpg" controls playsInline preload="metadata" />
         </div>
       </Panel>
-      <Panel className="panel--alerts" delay={0.1}>
-        <PanelHead icon="alert" title="Alertas recientes" sub="Hechos de alto impacto en el Estado de México">
+      <Panel className="panel--alerts" delay={0.15}>
+        <PanelHead icon="alert" title="Notas en General" sub="Hechos de alto impacto en el Estado de México">
           <span className="chip-live chip-live--red"><span className="live-dot" />En vivo</span>
         </PanelHead>
         <ul className="alerts">
@@ -412,7 +445,7 @@ function Expedientes({ query, setQuery, cat, setCat }) {
   )
   return (
     <Panel id="expedientes" className="panel--exp">
-      <PanelHead icon="folder" title="Secciones" sub="Nuestros 12 personajes · elige uno para ver sus noticias">
+      <PanelHead icon="folder" title="Equipo Informativo" sub="12 informantes · elige uno para ver sus noticias">
         {q && (
           <Btn variant="ghost" size="sm" icon="close" onClick={() => setQuery('')}>“{query}”</Btn>
         )}
