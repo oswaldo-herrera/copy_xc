@@ -14,12 +14,12 @@ import TeaserIntro from './components/TeaserIntro'
 
 const NAV = [
   { id: 'inicio', label: 'Inicio', icon: 'home' },
+  { id: 'nosotros', label: 'Nosotros', icon: 'users' },
   { id: 'expedientes', label: 'Secciones', icon: 'folder' },
   { id: 'mapa', label: 'Mapa de calor', icon: 'map' },
   { id: 'datos', label: 'Datos', icon: 'chart' },
   { id: 'evidencia', label: 'Evidencia aérea', icon: 'drone' },
   { id: 'denuncia', label: 'Denuncia Ciudadana', icon: 'megaphone' },
-  { id: 'nosotros', label: 'Nosotros', icon: 'users' },
 ]
 
 const scrollTo = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -337,6 +337,79 @@ function useDestacada() {
       })
   }, [])
   return nota
+}
+
+// ─── ¿Qué es Xpediente Callejero? ────────────────────────────────────────────
+
+const PILARES = [
+  { icon: 'search', title: 'Investigación periodística', text: 'Reportajes que documentan irregularidades con datos, fuentes y evidencia.' },
+  { icon: 'megaphone', title: 'Denuncia ciudadana', text: 'La voz de los vecinos convertida en expediente público.' },
+  { icon: 'shield', title: 'Rendición de cuentas', text: 'Seguimiento a cada caso hasta exigir respuestas a la autoridad.' },
+  { icon: 'drone', title: 'Perspectiva aérea', text: 'Drones que muestran desde arriba lo que no se ve al ras de calle.' },
+]
+
+function Manifiesto() {
+  return (
+    <section className="mani" id="nosotros" aria-labelledby="mani-title">
+      <p className="mani-masthead" aria-hidden><span>¿Quiénes somos?</span><span>Investigación · Denuncia · Seguimiento</span><span>Año I · Edición digital</span></p>
+      <span className="mani-x" aria-hidden>X</span>
+      <span className="mani-corner mani-corner--tl" aria-hidden />
+      <span className="mani-corner mani-corner--br" aria-hidden />
+
+      <div className="mani-main">
+        <motion.p className="mani-kicker" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          <span className="live-dot" /> Periódico digital · Edición Estado de México
+        </motion.p>
+        <motion.h2
+          id="mani-title"
+          className="mani-title"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          La calle ya tiene <span className="mani-hl">xpediente.</span>
+        </motion.h2>
+        <motion.p className="mani-lead" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <strong>Xpediente Callejero</strong> es un <strong>periódico digital</strong> del <strong>Estado de México</strong> enfocado
+          en la investigación periodística, la denuncia ciudadana y el seguimiento de asuntos públicos, para{' '}
+          <mark>visibilizar problemáticas, documentar irregularidades y exigir rendición de cuentas</mark>.
+        </motion.p>
+        <motion.p className="mani-text" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+          A través de reportajes, redes sociales y perspectivas aéreas con drones, acerca a la ciudadanía una visión
+          diferente, crítica y visual de lo que sucede en sus calles y comunidades.
+        </motion.p>
+        <motion.span
+          className="mani-stamp-wrap"
+          aria-hidden
+          initial={{ opacity: 0, scale: 2.2, rotate: -20 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: -8 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.55, type: 'spring', stiffness: 260, damping: 14 }}
+        >
+          <span className="mani-stamp">Periódico digital · Edomex</span>
+        </motion.span>
+      </div>
+
+      <ul className="mani-pillars">
+        {PILARES.map((p, i) => (
+          <motion.li
+            key={p.title}
+            className="mani-pillar"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 + i * 0.1 }}
+          >
+            <span className="mani-pillar-ico"><Icon name={p.icon} size={22} /></span>
+            <span className="mani-pillar-num">0{i + 1}</span>
+            <h3 className="mani-pillar-title">{p.title}</h3>
+            <p className="mani-pillar-text">{p.text}</p>
+          </motion.li>
+        ))}
+      </ul>
+    </section>
+  )
 }
 
 function FeaturedRow() {
@@ -730,7 +803,7 @@ function Denuncia() {
 
 function Footer({ onGo }) {
   return (
-    <footer className="footer" id="nosotros">
+    <footer className="footer" id="contacto">
       <div className="footer-grid">
         <div>
           <div className="footer-brand"><span className="stamp stamp--lg" aria-hidden />Xpediente Callejero</div>
@@ -820,8 +893,9 @@ export default function App() {
       <Sidebar active={active} open={menu} onClose={() => setMenu(false)} />
       <div className="main">
         <Header query={query} setQuery={setQuery} onMenu={() => setMenu(true)} />
-        <Ticker />
+        {/* Última hora oculta por el momento: <Ticker /> */}
         <main className="content">
+          <Manifiesto />
           <FeaturedRow />
           <Expedientes query={query} setQuery={setQuery} cat={cat} setCat={setCat} />
           <Kpis />
