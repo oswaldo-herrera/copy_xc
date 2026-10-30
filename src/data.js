@@ -229,7 +229,8 @@ export const WHATSAPP_NUMBER = ''
 
 // Video del teaser de entrada ("Próximamente"). Pega aquí el "Copiar link" del
 // admin (Supabase). Vacío = no se muestra la intro.
-export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/02a90e14-b512-4930-b2c0-c0eef4b5fcf2-yakazi-caption.mp4'
+export const TEASER_VIDEO = ''
+// export const TEASER_VIDEO = 'https://xysarosunlwjxhspfiql.supabase.co/storage/v1/object/public/videos/2026/10/02a90e14-b512-4930-b2c0-c0eef4b5fcf2-yakazi-caption.mp4'
 
 // En local (npm run dev) aparece la X para cerrarlo y entrar al sitio;
 // en producción (Vercel) no se puede cerrar y el sitio queda oculto detrás.
